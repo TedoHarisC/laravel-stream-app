@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use App\Models\Movie;
 
 class MovieController extends Controller
 {
@@ -23,8 +25,8 @@ class MovieController extends Controller
 
         $request->validate([
             'title' => 'required|string',
-            'small_thumbnail' => 'required|image\mimes:jpeg,jpg,png',
-            'large_thumbnail' => 'required|image\mimes:jpeg,jpg,png',
+            'small_thumbnail' => 'required|image|mimes:jpeg,jpg,png,webp',
+            'large_thumbnail' => 'required|image|mimes:jpeg,jpg,png,webp',
             'trailer' => 'required|url',
             'movie' => 'required|url',
             'casts' => 'required|string',
@@ -35,7 +37,23 @@ class MovieController extends Controller
             'duration' => 'required|string',
             'featured' => 'required'
         ]);
+
+        $smallThumbnail = $request->small_thumbnail;
+        $largeThumbnail = $request->large_thumbnail;
+
+        $originalSmallThumbnailName = Str::random(10).$smallThumbnail->getClientOriginalName();
+        $originalLargeThumbnailName = Str::random(10).$largeThumbnail->getClientOriginalName();
         
+        $smallThumbnail->storeAs('public/thumbnail', $originalSmallThumbnailName);
+        $largeThumbnail->storeAs('public/thumbnail', $originalLargeThumbnailName);
+
+        $data['small_thumbnail'] = $originalSmallThumbnailName;
+        $data['large_thumbnail'] = $originalLargeThumbnailName;
+
         //dd($data);
+
+        Movie::create($data);
+
+        return redirect()->route('admin.movie')->with('success', 'Movie created');
     }
 }

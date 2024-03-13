@@ -16,6 +16,12 @@
               <a href="{{ route('admin.movie.create') }}" class="btn btn-warning">Create Movie</a>
             </div>
           </div>
+          
+          @if(session()->has('success'))
+            <div class="alert alert-success">
+              {{ session('success') }}
+            </div>
+          @endif
 
           <div class="row">
             <div class="col-md-12">

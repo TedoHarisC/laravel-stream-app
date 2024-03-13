@@ -35,13 +35,17 @@
               <input type="text" class="form-control" id="trailer" name="trailer" placeholder="Video url" value="{{ old('trailer') }}">
             </div>
             <div class="form-group">
+              <label for="trailer">Movie</label>
+              <input type="text" class="form-control" id="movie" name="movie" placeholder="Video url" value="{{ old('movie') }}">
+            </div>
+            <div class="form-group">
               <label for="duration">Duration</label>
               <input type="text" class="form-control" id="duration" name="duration" placeholder="1h 39m" value="{{ old('duration') }}">
             </div>
             <div class="form-group">
               <label>Date:</label>
               <div class="input-group date" id="release-date" data-target-input="nearest">
-                <input type="text" name="release_date" value="{{ old('release_date') }}" class="form-control datetimepicker-input" data-target="#release-date"/>
+                <input type="text" name="release_date" value="{{ old('release_date', now()->format('Y-m-d H:i:s')) }}" class="form-control datetimepicker-input" data-target="#release-date"/>
                 <div class="input-group-append" data-target="#release-date" data-toggle="datetimepicker">
                   <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                 </div>

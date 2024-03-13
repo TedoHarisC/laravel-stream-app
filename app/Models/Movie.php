@@ -18,6 +18,7 @@ class Movie extends Model
         'movie',
         'casts',
         'categories',
+        'release_date',
         'small_thumbnail',
         'large_thumbnail',
         'about',
