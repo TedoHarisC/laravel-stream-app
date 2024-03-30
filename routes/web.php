@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Member\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
     Route::view('/', 'admin.dashboard')->name('admin.dashboard');
 
     Route::get('logout', [LoginController::class, 'logout'])->name('admin.logout');
-    
+
     Route::get('transaction', [TransactionController::class, 'index'])->name('admin.transaction');
 
     Route::group(['prefix' => 'movie'], function () {
@@ -37,3 +38,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.auth']], function () 
 });
 
 Route::view('/', 'index');
+Route::get('/register', [RegisterController::class, 'index'])->name('member.register');
